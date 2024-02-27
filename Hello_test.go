@@ -5,19 +5,37 @@ import (
 )
 
 func TestAdd(t *testing.T) {
-	if Add(4, 5) != 9 {
-		t.Error("Incorrect ans with input 4 and 5")
+	testCases := []struct {
+		name     string
+		a        int
+		b        int
+		expected int
+	}{
+		{
+			name:     "Case1",
+			a:        4,
+			b:        5,
+			expected: 9,
+		},
+		{
+			name:     "Case2",
+			a:        -4,
+			b:        5,
+			expected: 1,
+		},
+		{
+			name:     "Case1",
+			a:        -4,
+			b:        -5,
+			expected: -9,
+		},
 	}
-	if Add(-4, 5) != 1 {
-		t.Error("Incorrect ans with input -4 and 5")
-	}
-	if Add(4, -5) != -1 {
-		t.Error("Incorrect ans with input 4 and -5")
-	}
-	if Add(-4, -5) != -9 {
-		t.Error("Incorrect ans with input -4 and -5")
-	}
-	if Add(0, 5) != 5 {
-		t.Error("Incorrect ans with input 0 and 5")
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			result := Add(tc.a, tc.b)
+			if tc.expected != result {
+				t.Fatalf("expected %v", tc.expected)
+			}
+		})
 	}
 }
